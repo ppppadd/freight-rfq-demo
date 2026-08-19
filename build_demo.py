@@ -8,14 +8,14 @@
 特点：
   1. 数据全部为虚拟编撰（非任何真实供应商价格），结构对齐真实系统；
   2. 移除网页内所有真实公司/供应商名称；
-  3. 复用真实系统的 single.html 模板与渲染逻辑，保证界面与交互一致；
+  3. 复用系统询价页模板与渲染逻辑，保证界面与交互一致；
   4. 输出单文件 index.html，双击即可打开演示。
 
 用法：
   python3 build_demo.py [--template 模板路径] [--output 输出文件]
 
 依赖（仅趋势图模块，缺失时自动降级）：
-  skills/supplier-data-show/modules/web-builder/trend_inject.py 的 _render_html
+  本地趋势渲染模块 trend_inject_demo 的 _render_html
 """
 import argparse
 import json
@@ -221,11 +221,14 @@ def generate_eu_data():
 
 
 def build_site_data():
-    """组装完整的 site_data（对齐真实系统 build.py 的字段）"""
+    """组装完整的 site_data（对齐真实系统的字段）"""
     us_data = generate_us_data()
     us_cbm_data = generate_us_cbm_data()
     us_haipai_data = generate_us_haipai_data()
     eu_data = generate_eu_data()
+
+    # 全线路报价总数（首页与周报统计统一口径，含欧线）
+    total_records = len(us_data) + len(us_cbm_data) + len(us_haipai_data) + len(eu_data)
 
     # 仓库列表
     warehouses = sorted(US_WAREHOUSES)
@@ -289,8 +292,8 @@ def build_site_data():
             {"type": "WCI", "title": "全球集装箱运价指数 WCI",
              "summary": "WCI 本周报 4,120 美元/FEU，较上周 -1.8%，跨太平洋航线降幅最为明显。",
              "source": "演示数据", "date": week_of, "link": "#"},
-            {"type": "本周概览", "title": "本周 8 家供应商 · 10 条渠道",
-             "summary": "共覆盖 30 个 FBA 仓库，合计 1,500+ 条有效报价，美森/合德/普船全线可查。",
+            {"type": "本周概览", "title": f"本周 {len(SUPPLIERS)} 家供应商 · {len(US_CARD_CHANNELS)} 条卡派渠道",
+             "summary": f"共覆盖 {len(warehouses)} 个美线 FBA 仓库 + {len(EU_WAREHOUSES)} 个欧洲仓，合计 {total_records:,} 条有效报价，美森/合德/普船/欧线全线可查。",
              "source": "演示数据", "date": week_of, "link": "#channels"},
             {"type": "最优报价", "title": "普船特惠卡派本周最低 5.82 元/KG",
              "summary": "普船特惠卡派在华东进仓、51KG+ 档位下探至最低价，适合大批量补货。",
@@ -327,14 +330,9 @@ def build_site_data():
 # ============================================================
 
 def _try_import_trend_renderer():
-    """优先复用真实系统的趋势图渲染器，失败返回 None"""
+    """demo 独立：从同目录 trend_inject_demo 导入渲染器，失败返回 None"""
     try:
-        build_dir = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "skills", "supplier-data-show", "modules", "web-builder")
-        if build_dir not in sys.path:
-            sys.path.insert(0, build_dir)
-        from trend_inject import _render_html
+        from trend_inject_demo import _render_html
         return _render_html
     except Exception:
         return None
@@ -545,7 +543,7 @@ def render(site_data, template_html, output_path):
     sup_count = len(site_data.get("supplier_stats", {}))
     ch_count = len(site_data.get("channels", []))
     price_count = (len(site_data.get("us_data", [])) + len(site_data.get("us_cbm_data", []))
-                   + len(site_data.get("us_haipai_data", [])))
+                   + len(site_data.get("us_haipai_data", [])) + len(site_data.get("eu_data", [])))
 
     html = html.replace('<span id="statSup">13</span>', f'<span id="statSup">{sup_count}</span>')
     html = html.replace('<span id="statSup2">13</span>', f'<span id="statSup2">{sup_count}</span>')
@@ -561,7 +559,7 @@ def render(site_data, template_html, output_path):
                         + json.dumps(site_data.get("channel_rankings", []), ensure_ascii=False) + ";")
 
     news_html, week_desc = _generate_weekly_news_html(site_data.get("weekly_news", {}))
-    html = html.replace("<!-- 周报内容将通过build.py动态生成 -->", news_html)
+    html = html.replace("<!-- 周报内容动态生成 -->", news_html)
 
     html = html.replace("<!-- HOT_PRICES -->", _generate_hot_prices_html(site_data.get("hot_prices", [])))
     html = html.replace("<!-- TREND_CHARTS -->", site_data.get("trend_html", ""))
@@ -576,9 +574,9 @@ def render(site_data, template_html, output_path):
 
 
 def desensitize(html):
-    """脱敏：移除真实公司/供应商名称"""
-    html = html.replace("保宏境通", PLATFORM_NAME)
-    html = html.replace("跨境物流价格平台", PLATFORM_TAGLINE)
+    """脱敏：移除真实公司/供应商名称（生产模板品牌名统一替换为演示平台名）"""
+    html = html.replace("__PLATFORM_NAME__", PLATFORM_NAME)
+    html = html.replace("__PLATFORM_TAGLINE__", PLATFORM_TAGLINE)
 
     # 替换供应商映射对象（模板内 SUPPLIER_NAMES）
     sup_map = {code: name for code, name in SUPPLIERS}
@@ -588,11 +586,11 @@ def desensitize(html):
 
 
 def _find_template():
-    """向上查找开发环境中的 single.html 模板"""
+    """向上查找询价页模板文件"""
     here = os.path.dirname(os.path.abspath(__file__))
     candidates = [
-        os.path.join(here, "skills", "supplier-data-show", "modules", "web-builder", "templates", "single.html"),
-        os.path.join(here, "..", "skills", "supplier-data-show", "modules", "web-builder", "templates", "single.html"),
+        os.path.join(here, "templates", "single.html"),
+        os.path.join(here, "..", "templates", "single.html"),
     ]
     for c in candidates:
         if os.path.exists(c):

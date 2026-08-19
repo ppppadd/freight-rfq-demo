@@ -18,11 +18,27 @@
 freight-rfq-demo/
 ├── index.html          # 演示网页（单文件，双击即用，数据已内嵌）
 ├── build_demo.py       # 演示网页生成脚本（虚拟数据 + 脱敏 + 渲染）
+├── README.md           # 本文件（项目总览）
 ├── PRD.md              # 产品需求文档
 ├── ER.md               # 数据库 ER 图与表结构设计
-├── DEMO_SCRIPT.md      # 面试演示讲解脚本（10 分钟）
-└── README.md           # 本文件
+├── ARCHITECTURE.md     # 系统架构设计（分层 + 数据流 + 技术选型）
+├── AI_FEATURES.md      # ⭐ AI 能力设计说明（多模态OCR / 模型路由 / 防幻觉）
+├── MARKET.md           # 市场与竞品分析
+├── PORTFOLIO.md        # 项目作品集（AI 产品助理应聘配套）
+├── FreightGo_项目作品集.pdf  # ⭐ 项目作品集 PDF（面试用，含量化成果）
+└── DEMO_SCRIPT.md      # 面试演示讲解脚本（10 分钟）
 ```
+
+### 面试阅读顺序（文档导航）
+
+| 文档 | 回答什么问题 |
+|:---|:---|
+| [AI_FEATURES.md](./AI_FEATURES.md) | ⭐ AI / 大模型到底做了什么？怎么设计的？ |
+| [PORTFOLIO.md](./PORTFOLIO.md) | 我怎么把业务问题翻译成 AI 产品方案？ |
+| [MARKET.md](./MARKET.md) | 这个市场的钱在哪、痛在哪、我为什么切入？ |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | 技术架构和数据流是怎么设计的？ |
+| [PRD.md](./PRD.md) | 需求是怎么拆解和验收的？ |
+| [ER.md](./ER.md) | 数据库是怎么建模的？ |
 
 ## 三、快速开始
 
@@ -38,7 +54,7 @@ python3 build_demo.py --template <开发环境模板路径> --output index.html
 ```
 
 > `build_demo.py` 展示了从「数据源 → 渲染 → 单文件网页」的完整生成链路，
-> 与生产系统的 `build.py` 使用同一套模板与注入逻辑，只是数据源换成了虚拟数据。
+> 与生产系统使用同一套模板与注入逻辑，只是数据源换成了虚拟数据。
 
 ## 四、演示路径（建议顺序）
 
@@ -62,7 +78,7 @@ python3 build_demo.py --template <开发环境模板路径> --output index.html
 
 ```
 供应商价表(Excel)  ──解析──▶  数据库(SQLite)  ──查询──▶  询价引擎  ──渲染──▶  网页/报价
-   (虚拟数据)         build_demo.py              query_smart       build.py      index.html
+   (虚拟数据)         build_demo.py              询价引擎         渲染脚本      index.html
 ```
 
 ## 七、免责声明
