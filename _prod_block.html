@@ -1,0 +1,139 @@
+<!-- ===== 产品演示 ===== -->
+<section class="sec" id="product">
+  <div class="wrap">
+    <div class="sec-label reveal">The Product</div>
+    <h2 class="sec-title reveal">八大模块，覆盖询价全流程</h2>
+    <p class="sec-lead reveal">演示数据：从询价、比价、报价校验、到监控、评分、周报，覆盖商务每天的真实工作流。</p>
+    <div class="demo-tabs reveal">
+      <div class="demo-tab on" data-panel="p-query">询价查询</div>
+      <div class="demo-tab" data-panel="p-rank">智能比价</div>
+      <div class="demo-tab" data-panel="p-screenshot">截图报价</div>
+      <div class="demo-tab" data-panel="p-audit">报价校验</div>
+      <div class="demo-tab" data-panel="p-monitor">价格监控</div>
+      <div class="demo-tab" data-panel="p-score">供应商评分</div>
+      <div class="demo-tab" data-panel="p-trend">价格趋势</div>
+      <div class="demo-tab" data-panel="p-weekly">航运周报</div>
+    </div>
+    <div class="demo-stage reveal">
+      <div class="demo-header">
+        <span class="logo"><span class="dot">F</span>FreightGo</span>
+      </div>
+      <div class="demo-body">
+
+        <!-- 询价查询（合成：真交互，复用 demo 虚拟数据·脱敏） -->
+        <div class="demo-panel on" id="p-query">
+          <div class="q-search">
+            <input type="text" id="qInput" value="" placeholder="输入仓库代码，如 SUM1 / SUM2 / SUM3" autocomplete="off">
+            <button id="qBtn">查价</button>
+          </div>
+          <div class="q-result-head" id="qHead">
+            <span class="q-wh" id="qWh">SUM1 <span class="q-wh-badge">演示仓</span></span>
+            <span style="font-size:13px;color:var(--muted)">按最低单价排序 · 每渠道取最低档</span>
+          </div>
+          <div class="q-head">
+            <span>供应商</span><span>渠道</span><span style="text-align:right">单价</span><span style="text-align:right">时效</span><span style="text-align:right">进仓地</span>
+          </div>
+          <div id="qList"></div>
+        </div>
+
+        <!-- 智能比价（合成：真交互，选仓点/渠道组 → Top3 比价卡） -->
+        <div class="demo-panel" id="p-rank">
+          <div class="demo-action" style="margin-bottom:6px">
+            <span class="ctrl-label">仓点</span>
+            <span class="ctrl" id="rankWhCtrl"></span>
+            <span class="ctrl-label" style="margin-left:14px">渠道组</span>
+            <span class="ctrl" id="rankCgCtrl"></span>
+          </div>
+          <div class="rk-grid" id="rankGrid"></div>
+        </div>
+
+        <!-- 截图报价（合成：剧本化交互：OCR→白名单校验→疑似确认→出报价） -->
+        <div class="demo-panel" id="p-screenshot">
+          <div class="ocr-flow">
+            <span class="ocr-step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M9 12h6M9 9h3"/></svg>识别截图</span>
+            <span class="ocr-arr">→</span>
+            <span class="ocr-step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>白名单校验</span>
+            <span class="ocr-arr">→</span>
+            <span class="ocr-step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a1 1 0 0 0-1 1v3"/><path d="M16 3h3a1 1 0 0 1 1 1v3"/><path d="M8 21H5a1 1 0 0 1-1-1v-3"/><path d="M16 21h3a1 1 0 0 0 1-1v-3"/><path d="M10 15l2 2 4-4"/></svg>直接出报价</span>
+            <span class="ocr-note">形近字符 O/0、I/1 存疑 → 列出候选让用户确认，不硬报</span>
+          </div>
+          <div class="demo-action" style="margin:16px 0 10px">
+            <button id="shotReplay" class="shot-btn">▶ 重放识别</button>
+            <span id="shotStatus" class="shot-status">示例：识别一张含「SUM1 / SUMI」仓码的报价截图</span>
+          </div>
+          <div id="shotStage" class="stg" style="background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:18px 20px"></div>
+        </div>
+
+        <!-- 报价校验（合成：三道闸剧本：拦报错价/纯底价/不该接直接拒） -->
+        <div class="demo-panel" id="p-audit">
+          <div class="demo-action" style="margin-bottom:14px">
+            <span class="ctrl-label">选择票样</span>
+            <span class="ctrl" id="auditScnCtrl"></span>
+            <button id="auditRun" class="shot-btn" style="margin-left:6px">运行三道闸</button>
+          </div>
+          <div id="auditStage" class="stg"></div>
+        </div>
+
+        <!-- 价格监控（合成：真交互：渠道/周期切换 → 涨价榜/降价榜/价差/异常告警） -->
+        <div class="demo-panel" id="p-monitor">
+          <div class="mon-head">
+            <span class="mon-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 3v5h-5"/></svg><span id="monTitle">本周价格变动 · 普船特惠卡派</span></span>
+            <span class="mon-sub" id="monSub"></span>
+          </div>
+          <div class="demo-action" style="margin-bottom:10px">
+            <span class="ctrl-label">监控渠道</span>
+            <span class="ctrl" id="monChCtrl"></span>
+          </div>
+          <div class="rk-grid" id="monGrid"></div>
+          <div id="monAlerts"></div>
+          <div class="mon-foot">价表入库自动对比，变动秒级推送，商务无需手动盯价。</div>
+        </div>
+
+        <!-- 供应商评分（合成：真交互：4 维加权，口径切换重排，Top3 高亮） -->
+        <div class="demo-panel" id="p-score">
+          <div class="score-head">
+            <span class="mon-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.5 6.3.9-4.5 4.4 1 6.2-5.5-2.9L6 20l1-6.2L2.5 9.4l6.3-.9L12 3z"/></svg>供应商综合评分</span>
+            <span class="mon-sub">价格 40% · 时效 25% · 覆盖 20% · 稳定 15%</span>
+          </div>
+          <div class="demo-action" style="margin-bottom:10px">
+            <span class="ctrl-label">评分口径</span>
+            <span class="ctrl" id="scoreDimCtrl"></span>
+          </div>
+          <div class="rk-grid" id="scoreGrid"></div>
+          <div class="mon-foot">从「凭感觉选供应商」到「按可量化维度加权选型」，结果可溯源、可复现。</div>
+        </div>
+
+        <!-- 价格趋势 -->
+        <div class="demo-panel" id="p-trend">
+          <div class="demo-action" style="margin-bottom:14px">
+            <span style="font-size:12px;color:var(--sub);font-weight:600;letter-spacing:.05em">趋势分组</span>
+            <span class="pill on" data-tgrp="kp">卡派系列</span>
+            <span class="pill" data-tgrp="fast">快船系列</span>
+          </div>
+          <div class="trend-legend" id="trendLegend">
+            <span class="trend-lg"><span class="sw" style="background:#0071e3"></span>普船特惠卡派</span>
+            <span class="trend-lg"><span class="sw" style="background:#30b352"></span>普船卡派</span>
+            <span class="trend-lg"><span class="sw" style="background:#ff9f0a"></span>美森CLX正班卡派</span>
+            <span class="trend-lg"><span class="sw" style="background:#ff3b30"></span>美森MAX加班卡派</span>
+          </div>
+          <div class="trend-wrap">
+            <svg class="trend-svg" viewBox="0 0 900 300" preserveAspectRatio="xMidYMid meet" id="trendSvg"></svg>
+          </div>
+        </div>
+
+        <!-- 航运周报（合成：轻量交互：本周/上周切换，数值已脱敏） -->
+        <div class="demo-panel" id="p-weekly">
+          <div class="demo-action" style="margin-bottom:14px">
+            <span class="ctrl-label">报告期</span>
+            <span class="ctrl" id="weeklyCycleCtrl"></span>
+          </div>
+          <div id="weeklyGrid" class="weekly-grid"></div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
