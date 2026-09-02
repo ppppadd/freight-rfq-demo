@@ -509,7 +509,7 @@ onReady(function(){
   if(canvas){
     var ctx = canvas.getContext('2d');
     var W,H,parts=[],mouse={x:-999,y:-999};
-    var COL = {'79,70,229':true,'124,58,237':true,'37,99,235':false};
+    var COL = {'13,148,136':true,'8,145,178':true,'14,165,233':false};
     function resize(){
       W = canvas.width = canvas.offsetWidth;
       H = canvas.height = canvas.offsetHeight;
@@ -519,7 +519,7 @@ onReady(function(){
       parts = [];
       var n = Math.min(110, Math.floor(W*H/16000));
       for(var i=0;i<n;i++){
-        var c = i%9===0 ? 'rgba(79,70,229,AL)' : (i%11===0? 'rgba(124,58,237,AL)' : 'rgba(37,99,235,AL)');
+        var c = i%9===0 ? 'rgba(13,148,136,AL)' : (i%11===0? 'rgba(8,145,178,AL)' : 'rgba(14,165,233,AL)');
         parts.push({x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.6+.4, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, c:c});
       }
     }
@@ -533,7 +533,7 @@ onReady(function(){
         // gentle mouse attraction
         var dx=mouse.x-p.x, dy=mouse.y-p.y, d=Math.sqrt(dx*dx+dy*dy);
         if(d<140){ p.x+=dx/d*0.6; p.y+=dy/d*0.6; }
-        var alpha = p.c.indexOf('79,70,229')>=0? .42 : (p.c.indexOf('124,58,237')>=0? .34 : .16);
+        var alpha = p.c.indexOf('13,148,136')>=0? .42 : (p.c.indexOf('8,145,178')>=0? .34 : .16);
         ctx.fillStyle = p.c.replace('AL', alpha);
         ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill();
       }
@@ -542,7 +542,7 @@ onReady(function(){
         for(var b=a+1;b<parts.length;b++){
           var dx2=parts[a].x-parts[b].x, dy2=parts[a].y-parts[b].y, d2=Math.sqrt(dx2*dx2+dy2*dy2);
           if(d2<110){
-            ctx.strokeStyle='rgba(79,70,229,'+(0.04*(1-d2/110))+')';
+            ctx.strokeStyle='rgba(13,148,136,'+(0.04*(1-d2/110))+')';
             ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(parts[a].x,parts[a].y); ctx.lineTo(parts[b].x,parts[b].y); ctx.stroke();
           }
         }
