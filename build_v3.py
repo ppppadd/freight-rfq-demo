@@ -41,7 +41,6 @@ HERO = '''
 <section class="hero noise" id="top">
   <canvas id="hero-canvas"></canvas>
   <div class="wrap">
-    <div class="hero-tag"><span class="i"></span>跨境物流商务智能询报价系统 · 生产级</div>
     <h1 class="hero-title" id="hero-title">
       <span class="line grad">让每一次报价</span><br>
       <span class="line">都<span class="ac">有据可查</span></span>
@@ -187,11 +186,11 @@ def _tl_segs():
     segs = []
     for n, title, sub, steps in data:
         lis = "".join('<li><span class="n">%s</span>%s</li>' % (i, s) for i, s in enumerate(steps, 1))
-        segs.append('<div class="tl-seg"><div class="tl-card"><div class="tl-num">%s</div><h3>%s</h3><p>%s</p><ul class="tl-steps">%s</ul></div></div>' % (n, title, sub, lis))
+        segs.append('<div class="flow-item"><div class="tl-num">%s</div><div class="flow-body"><h3>%s</h3><p>%s</p><ul class="tl-steps">%s</ul></div></div>' % (n, title, sub, lis))
     return segs
 
 FLOW = '''
-<section class="section noise" id="flow" style="padding-bottom:0">
+<section class="section noise" id="flow">
   <div class="wrap">
     <div class="section-head" style="max-width:720px;margin-bottom:10px">
       <span class="eyebrow">主线走查</span>
@@ -199,11 +198,8 @@ FLOW = '''
       <p class="lead" style="margin-top:16px">这才是商务每天真实发生的事。八个模块不是并列展示，而是嵌进一条完整的工作流里。</p>
     </div>
   </div>
-  <div class="timeline">
-    <div class="rail"><div class="rail-fill" id="railFill"></div></div>
-    <div class="tl-visual">
-      <div class="tl-track" id="tlTrack">%s</div>
-    </div>
+  <div class="wrap">
+    <div class="flow-list">%s</div>
   </div>
 </section>
 ''' % "".join(_tl_segs())
@@ -379,7 +375,6 @@ OUTRO = '''
       <div class="step"><span class="sn">再 · 判断</span><h4>AI 判断</h4><p>清楚知道大模型的强项与命门——用于容错，不用于负责。这是 AI 产品落地最核心的判断。</p></div>
       <div class="step"><span class="sn">后 · 落地</span><h4>落地能力</h4><p>不满足于 demo，把「准确率」「可溯源」「可回滚」做成一等公民，敢上生产、敢负责任。</p></div>
     </div>
-    <p class="disclaimer">演示数据 · 供应商与渠道名已脱敏 · 界面为产品演示还原</p>
   </div>
 </section>
 '''
@@ -463,26 +458,7 @@ onReady(function(){
     });
   }
 
-  // ---- 4. Scroll-track timeline (pin + horizontal) ----
-  var tlTrack = document.getElementById('tlTrack');
-  var railFill = document.getElementById('railFill');
-  if(tlTrack && HAS_GSAP){
-    var segs = tlTrack.querySelectorAll('.tl-seg');
-    var total = tlTrack.scrollWidth - window.innerWidth;
-    gsap.to(tlTrack, {
-      x: -total, ease:'none',
-      scrollTrigger:{
-        trigger:'#flow', start:'top top', end: function(){ return '+='+ (tlTrack.scrollWidth) ; },
-        pin:true, scrub:1, anticipatePin:1,
-        onUpdate: function(self){
-          if(railFill) railFill.style.height = (self.progress*100) + '%';
-          segs.forEach(function(s,i){
-            var m = s.querySelector('.none'); // markers not used here
-          });
-        }
-      }
-    });
-  }
+  // ---- 4. (removed) Scroll-track timeline pin+horizontal — flow now plain vertical, no crazy scroll ----
 
   // ---- 5. Generic reveal scrub — delivery-safe: never hidden ----
   if(HAS_GSAP){
@@ -602,7 +578,7 @@ if __name__ == '__main__':
 </style>
 </head>
 <body>
-<div class="glow-bg"><span class="g1"></span><span class="g2"></span><span class="g3"></span><span class="line"></span></div>
+<div class="glow-bg"><span class="g1"></span><span class="g2"></span><span class="g3"></span></div>
 %s
 %s
 %s

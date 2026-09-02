@@ -42,7 +42,7 @@
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Helvetica Neue",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%;overflow-x:hidden}
 body{
   background:var(--bg);color:var(--text);
   font-family:var(--sans);font-size:16px;line-height:1.7;
@@ -87,7 +87,6 @@ img{max-width:100%;display:block}
 .glow-bg .g1{position:absolute;width:72vw;height:72vw;border-radius:50%;filter:blur(130px);opacity:.5;top:-22vw;left:56%;background:radial-gradient(circle,rgba(79,70,229,.28),transparent 68%)}
 .glow-bg .g2{position:absolute;width:56vw;height:56vw;border-radius:50%;filter:blur(150px);opacity:.4;top:52vh;left:-16vw;background:radial-gradient(circle,rgba(124,58,237,.20),transparent 70%)}
 .glow-bg .g3{position:absolute;width:52vw;height:52vw;border-radius:50%;filter:blur(140px);opacity:.34;top:150vh;right:-12vw;background:radial-gradient(circle,rgba(37,99,235,.16),transparent 70%)}
-.glow-bg .line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(79,70,229,.10),transparent)}
 
 /* ===== 顶栏 ===== */
 .nav{
@@ -116,12 +115,6 @@ img{max-width:100%;display:block}
 }
 #hero-canvas{position:absolute;inset:0;z-index:0}
 .hero .wrap{position:relative;z-index:2}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:9px;margin-bottom:30px;
-  font-family:var(--mono);font-size:13px;color:var(--ac);letter-spacing:.04em;
-  border:1px solid var(--border);padding:7px 16px;border-radius:30px;background:#fff;box-shadow:var(--shadow-sm);
-}
-.hero-tag .i{width:7px;height:7px;border-radius:50%;background:var(--grad)}
 .hero-title{font-size:clamp(44px,7.6vw,112px);font-weight:800;letter-spacing:-.035em;line-height:.99;margin-bottom:28px;text-wrap:balance}
 .hero-title .w{display:inline-block;opacity:1;will-change:transform}
 .hero-title .grad,
@@ -203,27 +196,29 @@ img{max-width:100%;display:block}
 }
 .duel-note strong{color:var(--text)}
 
-/* ===== 走查时间轴（pin） ===== */
-.timeline{position:relative}
-.rail{
-  position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);
-  background:rgba(30,41,80,.10);overflow:hidden;border-radius:2px;
+/* ===== 工作流（竖向自然卡片流） ===== */
+.flow-list{display:flex;flex-direction:column;gap:18px;max-width:920px;margin:0 auto}
+.flow-item{
+  display:flex;gap:26px;align-items:flex-start;
+  padding:30px 34px;border-radius:var(--r-md);border:1px solid var(--border);
+  background:var(--card);box-shadow:var(--shadow-sm);
+  transition:border-color .35s,transform .35s var(--ease),box-shadow .35s;
 }
-.rail-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--grad)}
-.tl-visual{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
-.tl-track{display:flex;align-items:stretch;height:70vh;position:relative;width:100%}
-.tl-seg{flex:none;width:64vw;max-width:760px;display:flex;align-items:center;justify-content:center;padding:0 40px}
-.tl-marker{position:absolute;top:50%;width:15px;height:15px;border-radius:50%;background:#fff;border:2px solid var(--muted);transform:translateY(-50%)}
-.tl-marker.on{background:var(--ac);border-color:var(--ac);box-shadow:0 0 16px rgba(79,70,229,.4)}
-.tl-card{max-width:520px}
-.tl-num{font-family:var(--mono);font-size:14px;color:var(--ac);font-weight:700;letter-spacing:.06em;margin-bottom:12px}
-.tl-card h3{font-size:clamp(24px,2.6vw,34px);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
-.tl-card p{color:var(--sub);font-size:16px;margin-bottom:18px}
-.tl-steps{list-style:none;display:flex;flex-direction:column;gap:10px}
-.tl-steps li{display:flex;gap:10px;align-items:center;font-size:14.5px;color:var(--text)}
+.flow-item:hover{border-color:var(--ac-soft);transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.flow-item .tl-num{
+  font-family:var(--mono);font-size:15px;color:var(--ac);font-weight:800;letter-spacing:.06em;
+  flex:none;line-height:1.1;margin-bottom:0;padding-top:3px;
+}
+.flow-body{flex:1;min-width:0}
+.flow-body h3{font-size:clamp(20px,2.2vw,27px);font-weight:800;letter-spacing:-.02em;margin-bottom:10px;color:var(--text)}
+.flow-body p{color:var(--sub);font-size:15px;margin-bottom:16px}
+.tl-steps{list-style:none;display:flex;flex-direction:column;gap:9px}
+.tl-steps li{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--text)}
 .tl-steps li .n{width:22px;height:22px;border-radius:50%;background:var(--ac-soft);color:var(--ac);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
-.tl-track .tl-seg:nth-child(odd){align-self:flex-start}
-.tl-track .tl-seg:nth-child(even){align-self:flex-end}
+@media (max-width:640px){
+  .flow-item{flex-direction:column;gap:12px;padding:22px}
+}
+<<<TRUNCATED>>>
 
 /* ===== 通用 reveal 块 ===== */
 .rv{opacity:1;transform:translateY(0);will-change:transform}
@@ -276,7 +271,6 @@ img{max-width:100%;display:block}
 .outro .step .sn{font-family:var(--mono);font-size:13px;color:var(--ac);font-weight:700;display:block;margin-bottom:10px}
 .outro .step h4{font-size:16px;margin-bottom:6px;color:var(--text)}
 .outro .step p{font-size:13px;color:var(--muted)}
-.disclaimer{margin-top:80px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.02em}
 
 /* ===== foot ===== */
 .foot{padding:40px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
@@ -301,11 +295,10 @@ img{max-width:100%;display:block}
 }
 @media print{
   body{background:#fff;color:#111}
-  #hero-canvas,.glow-bg,.progress,.nav,.scroll-hint,.rail{display:none!important}
+  #hero-canvas,.glow-bg,.progress,.nav,.scroll-hint{display:none!important}
   .rv{opacity:1!important;transform:none!important}
-  .tl-visual{position:static;height:auto}
   .duel-stage{min-height:auto;height:auto}
-  .section,.duel,.timeline{padding:40px 0!important;overflow:visible!important}
+  .section,.duel{padding:40px 0!important;overflow:visible!important}
 }
 
 </style>
@@ -615,7 +608,7 @@ img{max-width:100%;display:block}
 </style>
 </head>
 <body>
-<div class="glow-bg"><span class="g1"></span><span class="g2"></span><span class="g3"></span><span class="line"></span></div>
+<div class="glow-bg"><span class="g1"></span><span class="g2"></span><span class="g3"></span></div>
 
 <header class="nav" id="nav">
   <a class="nav-logo" href="#top"><span class="dot">F</span>FreightGo</a>
@@ -634,7 +627,6 @@ img{max-width:100%;display:block}
 <section class="hero noise" id="top">
   <canvas id="hero-canvas"></canvas>
   <div class="wrap">
-    <div class="hero-tag"><span class="i"></span>跨境物流商务智能询报价系统 · 生产级</div>
     <h1 class="hero-title" id="hero-title">
       <span class="line grad">让每一次报价</span><br>
       <span class="line">都<span class="ac">有据可查</span></span>
@@ -759,7 +751,7 @@ img{max-width:100%;display:block}
 </section>
 
 
-<section class="section noise" id="flow" style="padding-bottom:0">
+<section class="section noise" id="flow">
   <div class="wrap">
     <div class="section-head" style="max-width:720px;margin-bottom:10px">
       <span class="eyebrow">主线走查</span>
@@ -767,11 +759,8 @@ img{max-width:100%;display:block}
       <p class="lead" style="margin-top:16px">这才是商务每天真实发生的事。八个模块不是并列展示，而是嵌进一条完整的工作流里。</p>
     </div>
   </div>
-  <div class="timeline">
-    <div class="rail"><div class="rail-fill" id="railFill"></div></div>
-    <div class="tl-visual">
-      <div class="tl-track" id="tlTrack"><div class="tl-seg"><div class="tl-card"><div class="tl-num">01</div><h3>询价查询</h3><p>一个仓码，跨十几张价表</p><ul class="tl-steps"><li><span class="n">1</span>输入 SUM1 这样的仓码</li><li><span class="n">2</span>按最低单价排序，每渠道取最低档</li><li><span class="n">3</span>秒级返回，不需要翻表</li></ul></div></div><div class="tl-seg"><div class="tl-card"><div class="tl-num">02</div><h3>智能比价</h3><p>表面单价无法横向比</p><ul class="tl-steps"><li><span class="n">1</span>渠道母集标准化，归到统一命名</li><li><span class="n">2</span>选择仓点 / 渠道组</li><li><span class="n">3</span>给出 Top3 最优 + 点评</li></ul></div></div><div class="tl-seg"><div class="tl-card"><div class="tl-num">03</div><h3>截图报价</h3><p>客户甩张图，人工抄价慢</p><ul class="tl-steps"><li><span class="n">1</span>VLM 逐字 OCR 识别仓码与价格</li><li><span class="n">2</span>白名单校验，不是正则猜</li><li><span class="n">3</span>疑似仓码列候选让用户确认</li></ul></div></div><div class="tl-seg"><div class="tl-card"><div class="tl-num">04</div><h3>报价校验</h3><p>附加费漏算就亏钱</p><ul class="tl-steps"><li><span class="n">1</span>计费规则四维锁定</li><li><span class="n">2</span>比重 / 附加费 / 报关费逐条核</li><li><span class="n">3</span>引擎只读底价，绝不加价</li></ul></div></div><div class="tl-seg"><div class="tl-card"><div class="tl-num">05</div><h3>价格监控</h3><p>价表周更，盯不住涨跌</p><ul class="tl-steps"><li><span class="n">1</span>入库自动对比</li><li><span class="n">2</span>变动秒级推送告警</li><li><span class="n">3</span>商务无需手动盯价</li></ul></div></div><div class="tl-seg"><div class="tl-card"><div class="tl-num">06</div><h3>供应商评分</h3><p>凭感觉选供应商不靠谱</p><ul class="tl-steps"><li><span class="n">1</span>价格 / 时效 / 覆盖 / 稳定加权</li><li><span class="n">2</span>可溯源、可复现</li><li><span class="n">3</span>按可量化维度选型</li></ul></div></div><div class="tl-seg"><div class="tl-card"><div class="tl-num">07</div><h3>价格趋势</h3><p>涨还是跌，要有走势</p><ul class="tl-steps"><li><span class="n">1</span>SQL 快照对比</li><li><span class="n">2</span>逐周核对，数据可信</li><li><span class="n">3</span>趋势可查可回溯</li></ul></div></div><div class="tl-seg"><div class="tl-card"><div class="tl-num">08</div><h3>航运周报</h3><p>给商务一份决策依据</p><ul class="tl-steps"><li><span class="n">1</span>核心指数 / 航线走势聚合</li><li><span class="n">2</span>市场动态 / 下周预测 / 商务建议</li><li><span class="n">3</span>五点聚焦，先给结论</li></ul></div></div></div>
-    </div>
+  <div class="wrap">
+    <div class="flow-list"><div class="flow-item"><div class="tl-num">01</div><div class="flow-body"><h3>询价查询</h3><p>一个仓码，跨十几张价表</p><ul class="tl-steps"><li><span class="n">1</span>输入 SUM1 这样的仓码</li><li><span class="n">2</span>按最低单价排序，每渠道取最低档</li><li><span class="n">3</span>秒级返回，不需要翻表</li></ul></div></div><div class="flow-item"><div class="tl-num">02</div><div class="flow-body"><h3>智能比价</h3><p>表面单价无法横向比</p><ul class="tl-steps"><li><span class="n">1</span>渠道母集标准化，归到统一命名</li><li><span class="n">2</span>选择仓点 / 渠道组</li><li><span class="n">3</span>给出 Top3 最优 + 点评</li></ul></div></div><div class="flow-item"><div class="tl-num">03</div><div class="flow-body"><h3>截图报价</h3><p>客户甩张图，人工抄价慢</p><ul class="tl-steps"><li><span class="n">1</span>VLM 逐字 OCR 识别仓码与价格</li><li><span class="n">2</span>白名单校验，不是正则猜</li><li><span class="n">3</span>疑似仓码列候选让用户确认</li></ul></div></div><div class="flow-item"><div class="tl-num">04</div><div class="flow-body"><h3>报价校验</h3><p>附加费漏算就亏钱</p><ul class="tl-steps"><li><span class="n">1</span>计费规则四维锁定</li><li><span class="n">2</span>比重 / 附加费 / 报关费逐条核</li><li><span class="n">3</span>引擎只读底价，绝不加价</li></ul></div></div><div class="flow-item"><div class="tl-num">05</div><div class="flow-body"><h3>价格监控</h3><p>价表周更，盯不住涨跌</p><ul class="tl-steps"><li><span class="n">1</span>入库自动对比</li><li><span class="n">2</span>变动秒级推送告警</li><li><span class="n">3</span>商务无需手动盯价</li></ul></div></div><div class="flow-item"><div class="tl-num">06</div><div class="flow-body"><h3>供应商评分</h3><p>凭感觉选供应商不靠谱</p><ul class="tl-steps"><li><span class="n">1</span>价格 / 时效 / 覆盖 / 稳定加权</li><li><span class="n">2</span>可溯源、可复现</li><li><span class="n">3</span>按可量化维度选型</li></ul></div></div><div class="flow-item"><div class="tl-num">07</div><div class="flow-body"><h3>价格趋势</h3><p>涨还是跌，要有走势</p><ul class="tl-steps"><li><span class="n">1</span>SQL 快照对比</li><li><span class="n">2</span>逐周核对，数据可信</li><li><span class="n">3</span>趋势可查可回溯</li></ul></div></div><div class="flow-item"><div class="tl-num">08</div><div class="flow-body"><h3>航运周报</h3><p>给商务一份决策依据</p><ul class="tl-steps"><li><span class="n">1</span>核心指数 / 航线走势聚合</li><li><span class="n">2</span>市场动态 / 下周预测 / 商务建议</li><li><span class="n">3</span>五点聚焦，先给结论</li></ul></div></div></div>
   </div>
 </section>
 
@@ -1074,7 +1063,6 @@ img{max-width:100%;display:block}
       <div class="step"><span class="sn">再 · 判断</span><h4>AI 判断</h4><p>清楚知道大模型的强项与命门——用于容错，不用于负责。这是 AI 产品落地最核心的判断。</p></div>
       <div class="step"><span class="sn">后 · 落地</span><h4>落地能力</h4><p>不满足于 demo，把「准确率」「可溯源」「可回滚」做成一等公民，敢上生产、敢负责任。</p></div>
     </div>
-    <p class="disclaimer">演示数据 · 供应商与渠道名已脱敏 · 界面为产品演示还原</p>
   </div>
 </section>
 
@@ -1157,26 +1145,7 @@ onReady(function(){
     });
   }
 
-  // ---- 4. Scroll-track timeline (pin + horizontal) ----
-  var tlTrack = document.getElementById('tlTrack');
-  var railFill = document.getElementById('railFill');
-  if(tlTrack && HAS_GSAP){
-    var segs = tlTrack.querySelectorAll('.tl-seg');
-    var total = tlTrack.scrollWidth - window.innerWidth;
-    gsap.to(tlTrack, {
-      x: -total, ease:'none',
-      scrollTrigger:{
-        trigger:'#flow', start:'top top', end: function(){ return '+='+ (tlTrack.scrollWidth) ; },
-        pin:true, scrub:1, anticipatePin:1,
-        onUpdate: function(self){
-          if(railFill) railFill.style.height = (self.progress*100) + '%';
-          segs.forEach(function(s,i){
-            var m = s.querySelector('.none'); // markers not used here
-          });
-        }
-      }
-    });
-  }
+  // ---- 4. (removed) Scroll-track timeline pin+horizontal — flow now plain vertical, no crazy scroll ----
 
   // ---- 5. Generic reveal scrub — delivery-safe: never hidden ----
   if(HAS_GSAP){
