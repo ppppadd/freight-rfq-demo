@@ -43,10 +43,16 @@ HERO = '''
   <div class="wrap">
     <div class="hero-tag"><span class="i"></span>跨境物流商务智能询报价系统 · 生产级</div>
     <h1 class="hero-title" id="hero-title">
-      <span class="line">让每一次报价</span><br>
+      <span class="line grad">让每一次报价</span><br>
       <span class="line">都<span class="ac">有据可查</span></span>
     </h1>
     <p class="hero-lead">跨境物流商务每天面对几十张周更 Excel 价表，查一个仓库的底价要来回翻十几分钟，还容易报错价、漏要素。我没有止步于「让 AI 聊天」——而是把一个真问题拆解、落地、验证，做成一套能扛住真实业务压力的系统。</p>
+    <div class="hero-chips">
+      <span class="chip"><span class="ci ci-ci"></span>智能询价</span>
+      <span class="chip"><span class="ci ci-shot"></span>截图识别</span>
+      <span class="chip"><span class="ci ci-trend"></span>趋势判断</span>
+      <span class="chip"><span class="ci ci-week"></span>周报聚合</span>
+    </div>
     <div class="hero-actions">
       <a class="btn-primary" href="#product">看产品演示</a>
       <a class="btn-ghost" href="#duel">先看产品判断</a>
@@ -527,7 +533,7 @@ onReady(function(){
   if(canvas){
     var ctx = canvas.getContext('2d');
     var W,H,parts=[],mouse={x:-999,y:-999};
-    var COL = {'235,92,45':true,'34,197,94':true,'255,255,255':false};
+    var COL = {'79,70,229':true,'124,58,237':true,'37,99,235':false};
     function resize(){
       W = canvas.width = canvas.offsetWidth;
       H = canvas.height = canvas.offsetHeight;
@@ -537,7 +543,7 @@ onReady(function(){
       parts = [];
       var n = Math.min(110, Math.floor(W*H/16000));
       for(var i=0;i<n;i++){
-        var c = i%9===0 ? 'rgba(255,92,45,AL)' : (i%11===0? 'rgba(34,197,94,AL)' : 'rgba(255,255,255,AL)');
+        var c = i%9===0 ? 'rgba(79,70,229,AL)' : (i%11===0? 'rgba(124,58,237,AL)' : 'rgba(37,99,235,AL)');
         parts.push({x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.6+.4, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, c:c});
       }
     }
@@ -551,7 +557,7 @@ onReady(function(){
         // gentle mouse attraction
         var dx=mouse.x-p.x, dy=mouse.y-p.y, d=Math.sqrt(dx*dx+dy*dy);
         if(d<140){ p.x+=dx/d*0.6; p.y+=dy/d*0.6; }
-        var alpha = p.c.indexOf('255,92,45')>=0? .5 : (p.c.indexOf('34,197,94')>=0? .4 : .16);
+        var alpha = p.c.indexOf('79,70,229')>=0? .42 : (p.c.indexOf('124,58,237')>=0? .34 : .16);
         ctx.fillStyle = p.c.replace('AL', alpha);
         ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill();
       }
@@ -560,7 +566,7 @@ onReady(function(){
         for(var b=a+1;b<parts.length;b++){
           var dx2=parts[a].x-parts[b].x, dy2=parts[a].y-parts[b].y, d2=Math.sqrt(dx2*dx2+dy2*dy2);
           if(d2<110){
-            ctx.strokeStyle='rgba(255,255,255,'+(0.05*(1-d2/110))+')';
+            ctx.strokeStyle='rgba(79,70,229,'+(0.04*(1-d2/110))+')';
             ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(parts[a].x,parts[a].y); ctx.lineTo(parts[b].x,parts[b].y); ctx.stroke();
           }
         }
