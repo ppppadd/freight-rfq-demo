@@ -54,7 +54,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 img{max-width:100%;display:block}
 
 /* ===== 通用 ===== */
-.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,44px)}
 .k{font-family:var(--mono)}
 .tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 
@@ -390,6 +390,23 @@ img{max-width:100%;display:block}
     transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
   }
   .rk-card:hover,.weekly-card:hover,.metric-card:hover,.ai-card:hover{border-color:var(--border-strong)}
+}
+
+
+/* ===== v2 紧凑两栏排版 ===== */
+.chapter .wrap,.sec .wrap{display:grid;grid-template-columns:minmax(230px,300px) 1fr;gap:clamp(32px,4vw,56px);align-items:start}
+.ch-head{position:sticky;top:96px}
+.ch-head .ch-index{margin-bottom:clamp(16px,2vw,22px)}
+.ch-head .ch-title{font-size:clamp(25px,2.4vw,36px);line-height:1.14;margin:0 0 clamp(16px,2vw,22px);max-width:22ch}
+.ch-head .ch-lead{font-size:15px;line-height:1.7;margin-top:0;max-width:34ch}
+.ch-head .sec-label{margin-bottom:clamp(14px,2vw,20px)}
+.ch-head .sec-title{font-size:clamp(25px,2.4vw,36px);line-height:1.14;margin:0 0 clamp(16px,2vw,22px)}
+.ch-head .sec-lead{font-size:15px;line-height:1.7;margin-top:0;max-width:34ch}
+.ch-body{min-width:0}
+.ch-body>:first-child{margin-top:0!important}
+@media(max-width:920px){
+  .chapter .wrap,.sec .wrap{grid-template-columns:1fr}
+  .ch-head{position:static}
 }
 
 </style>
@@ -742,10 +759,12 @@ img{max-width:100%;display:block}
 
 
 <section class="chapter" id="duel">
-  <div class="wrap">
-    <div class="ch-index"><span class="no">01</span>第一条产品判断</div>
+  <div class="wrap"><div class="ch-head">
+<div class="ch-index"><span class="no">01</span>第一条产品判断</div>
     <h2 class="ch-title">AI 应该做什么，<br><span class="ac">绝不该做什么</span></h2>
     <p class="ch-lead">我做的第一件事不是调大模型，而是判断——这个问题里，AI 适合做什么、绝不适合做什么。这是 AI 产品落地最容易被忽略、也最见功力的一步。</p>
+</div>
+<div class="ch-body">
 
     <div class="duel-grid" style="margin-top:clamp(48px,6vw,88px)">
       <div class="duel-col do">
@@ -770,33 +789,33 @@ img{max-width:100%;display:block}
       </div>
     </div>
     <p class="duel-note" style="margin-top:clamp(32px,4vw,56px)">我的判断：AI 用于 <strong>容错</strong>，而不能用于 <strong>负责</strong>。</p>
-  </div>
+  </div></div>
 </section>
 
 
 <section class="chapter" id="problem">
-  <div class="wrap">
-    <div class="grid-7-5">
-      <div>
-        <div class="ch-index"><span class="no">02</span>业务痛点</div>
-        <h2 class="ch-title">报价，是商务最耗时<br>也最容易出错的一环</h2>
-      </div>
-      <p class="ch-lead" style="margin-top:clamp(48px,6vw,72px)">价格散落在各家供应商的 Excel 里，口径五花八门。人工翻表，既慢又险。</p>
-    </div>
+  <div class="wrap"><div class="ch-head">
+<div class="ch-index"><span class="no">02</span>业务痛点</div>
+<h2 class="ch-title">报价，是商务最耗时<br>也最容易出错的一环</h2>
+<p class="ch-lead" style="margin-top:clamp(48px,6vw,72px)">价格散落在各家供应商的 Excel 里，口径五花八门。人工翻表，既慢又险。</p>
+</div>
+<div class="ch-body">
     <div class="rows" style="margin-top:clamp(48px,6vw,88px)">
       <div class="row"><span class="no">01</span><span class="t">查价慢</span><span class="d">供应商价表按周更新、版本繁多，一个仓码要跨十几张表人工核对，单次询价耗时数分钟起。</span></div>
       <div class="row"><span class="no">02</span><span class="t">比价难</span><span class="d">渠道命名、计费规则（重量段、比重、附加费、报关费）不统一，表面单价根本无法横向比较真实底价。</span></div>
       <div class="row"><span class="no">03</span><span class="t">报价乱</span><span class="d">起运地、时效、附加费口径不一致，容易报错价、漏要素，直接影响成交与口碑。</span></div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 
 <section class="chapter" id="approach">
-  <div class="wrap">
-    <div class="ch-index"><span class="no">03</span>落地策略</div>
+  <div class="wrap"><div class="ch-head">
+<div class="ch-index"><span class="no">03</span>落地策略</div>
     <h2 class="ch-title">把「能跑」推向<br><span class="ac">敢上生产</span></h2>
     <p class="ch-lead">我靠的不是模型，是判断。很多 demo 很惊艳，但一上生产就崩——原因只有一个：没想清楚「准确率是谁负责、容错谁来兜、出了错怎么溯源」。这三件事，我把它做成产品机制，而不是运气。</p>
+</div>
+<div class="ch-body">
 
     <div style="margin-top:clamp(48px,6vw,88px)">
       <div class="feat-row">
@@ -815,52 +834,57 @@ img{max-width:100%;display:block}
         <div class="side">这是底线，不是口号。</div>
       </div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 
 <section class="chapter" id="flow">
-  <div class="wrap">
-    <div class="ch-index"><span class="no">04</span>主线走查</div>
+  <div class="wrap" style="grid-template-columns:1fr;gap:clamp(28px,3vw,48px);max-width:1400px;padding:0 clamp(16px,3vw,32px)">
+<div class="ch-head" style="position:static">
+<div class="ch-index"><span class="no">04</span>主线走查</div>
     <h2 class="ch-title">一票货，<br><span class="ac">从询价到成交</span></h2>
-    <p class="ch-lead">这才是商务每天真实发生的事。八个模块不是并列展示，而是嵌进一条完整的工作流里。</p>
-  </div>
-  <div class="wrap" style="margin-top:clamp(48px,6vw,88px)">
-    <div class="diagram-wrap" style="margin-top:clamp(48px,6vw,88px)"><svg class="diagram" viewBox="0 0 1040 500" role="img" aria-label="一票货从询价到成交的八模块工作流">
+    <p class="ch-lead">八个模块分列「询价 · 报价」「监控 · 决策」两段，串成一条从询价到成交的横向工作流。</p>
+</div>
+<div class="ch-body">
+    <div class="diagram-wrap" style="margin-top:0"><svg class="diagram" viewBox="0 0 1416 320" role="img" aria-label="一票货从询价到成交的八模块工作流">
   <defs>
     <marker id="farr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="arrow"/></marker>
   </defs>
   <g font-family="var(--sans)">
-    <rect class="box" x="420" y="16" width="200" height="46" rx="12"/>
-    <text class="t" x="520" y="45" text-anchor="middle" font-size="15">客户开口询价</text>
-    <path class="link" d="M520 62 L520 80" marker-end="url(#farr)"/>
+    <rect class="box" x="16" y="100" width="170" height="120" rx="14"/>
+    <text class="t" x="101" y="168" text-anchor="middle" font-size="24">客户开口询价</text>
+    <path class="link" d="M186 160 L226 160" marker-end="url(#farr)"/>
 
-    <rect class="lane" x="40" y="88" width="460" height="300" rx="16"/>
-    <text class="lane-title" x="64" y="114">询价 · 报价</text>
-    <text x="476" y="114" text-anchor="end" font-size="11" fill="var(--sub)">秒级自动</text>
-    <rect class="box" x="64" y="130" width="412" height="52" rx="10"/><circle cx="88" cy="156" r="13" fill="var(--ac)"/><text class="n" x="88" y="161" text-anchor="middle">1</text><text class="t" x="108" y="152" font-size="14">询价查询</text><text class="s" x="108" y="169" font-size="11">一个仓码，跨十几张价表</text><rect class="box" x="64" y="196" width="412" height="52" rx="10"/><circle cx="88" cy="222" r="13" fill="var(--ac)"/><text class="n" x="88" y="227" text-anchor="middle">2</text><text class="t" x="108" y="218" font-size="14">智能比价</text><text class="s" x="108" y="235" font-size="11">表面单价无法横向比</text><rect class="box" x="64" y="262" width="412" height="52" rx="10"/><circle cx="88" cy="288" r="13" fill="var(--ac)"/><text class="n" x="88" y="293" text-anchor="middle">3</text><text class="t" x="108" y="284" font-size="14">截图报价</text><text class="s" x="108" y="301" font-size="11">客户甩张图，人工抄价慢</text><rect class="box" x="64" y="328" width="412" height="52" rx="10"/><circle cx="88" cy="354" r="13" fill="var(--ac)"/><text class="n" x="88" y="359" text-anchor="middle">4</text><text class="t" x="108" y="350" font-size="14">报价校验</text><text class="s" x="108" y="367" font-size="11">附加费漏算就亏钱</text>
+    <rect class="lane" x="226" y="20" width="462" height="280" rx="16"/>
+    <text class="lane-title" x="242" y="52" font-size="18">询价 · 报价</text>
+    <text x="672" y="52" text-anchor="end" font-size="18" fill="var(--sub)">秒级自动</text>
+    <rect class="box" x="242" y="66" width="210" height="92" rx="10"/><circle cx="266" cy="98" r="15" fill="var(--ac)"/><text class="n" x="266" y="103" text-anchor="middle" font-size="16">1</text><text class="t" x="288" y="94" font-size="20">询价查询</text><text class="s" x="288" y="118" font-size="14">一个仓码，跨十几张价表</text><rect class="box" x="462" y="66" width="210" height="92" rx="10"/><circle cx="486" cy="98" r="15" fill="var(--ac)"/><text class="n" x="486" y="103" text-anchor="middle" font-size="16">2</text><text class="t" x="508" y="94" font-size="20">智能比价</text><text class="s" x="508" y="118" font-size="14">表面单价无法横向比</text><rect class="box" x="242" y="168" width="210" height="92" rx="10"/><circle cx="266" cy="200" r="15" fill="var(--ac)"/><text class="n" x="266" y="205" text-anchor="middle" font-size="16">3</text><text class="t" x="288" y="196" font-size="20">截图报价</text><text class="s" x="288" y="220" font-size="14">客户甩张图，人工抄价慢</text><rect class="box" x="462" y="168" width="210" height="92" rx="10"/><circle cx="486" cy="200" r="15" fill="var(--ac)"/><text class="n" x="486" y="205" text-anchor="middle" font-size="16">4</text><text class="t" x="508" y="196" font-size="20">报价校验</text><text class="s" x="508" y="220" font-size="14">附加费漏算就亏钱</text>
 
-    <rect class="lane" x="540" y="88" width="460" height="300" rx="16"/>
-    <text class="lane-title" x="564" y="114">监控 · 决策</text>
-    <text x="976" y="114" text-anchor="end" font-size="11" fill="var(--sub)">持续护航</text>
-    <rect class="box" x="564" y="130" width="412" height="52" rx="10"/><circle cx="588" cy="156" r="13" fill="var(--ac)"/><text class="n" x="588" y="161" text-anchor="middle">5</text><text class="t" x="608" y="152" font-size="14">价格监控</text><text class="s" x="608" y="169" font-size="11">价表周更，盯不住涨跌</text><rect class="box" x="564" y="196" width="412" height="52" rx="10"/><circle cx="588" cy="222" r="13" fill="var(--ac)"/><text class="n" x="588" y="227" text-anchor="middle">6</text><text class="t" x="608" y="218" font-size="14">供应商评分</text><text class="s" x="608" y="235" font-size="11">凭感觉选供应商不靠谱</text><rect class="box" x="564" y="262" width="412" height="52" rx="10"/><circle cx="588" cy="288" r="13" fill="var(--ac)"/><text class="n" x="588" y="293" text-anchor="middle">7</text><text class="t" x="608" y="284" font-size="14">价格趋势</text><text class="s" x="608" y="301" font-size="11">涨还是跌，要有走势</text><rect class="box" x="564" y="328" width="412" height="52" rx="10"/><circle cx="588" cy="354" r="13" fill="var(--ac)"/><text class="n" x="588" y="359" text-anchor="middle">8</text><text class="t" x="608" y="350" font-size="14">航运周报</text><text class="s" x="608" y="367" font-size="11">给商务一份决策依据</text>
+    <path class="link" d="M688 160 L728 160" marker-end="url(#farr)"/>
 
-    <path class="link" d="M500 238 L534 238" marker-end="url(#farr)"/>
-    <path class="link" d="M520 388 L520 410" marker-end="url(#farr)"/>
+    <rect class="lane" x="728" y="20" width="462" height="280" rx="16"/>
+    <text class="lane-title" x="744" y="52" font-size="18">监控 · 决策</text>
+    <text x="1174" y="52" text-anchor="end" font-size="18" fill="var(--sub)">持续护航</text>
+    <rect class="box" x="744" y="66" width="210" height="92" rx="10"/><circle cx="768" cy="98" r="15" fill="var(--ac)"/><text class="n" x="768" y="103" text-anchor="middle" font-size="16">5</text><text class="t" x="790" y="94" font-size="20">价格监控</text><text class="s" x="790" y="118" font-size="14">价表周更，盯不住涨跌</text><rect class="box" x="964" y="66" width="210" height="92" rx="10"/><circle cx="988" cy="98" r="15" fill="var(--ac)"/><text class="n" x="988" y="103" text-anchor="middle" font-size="16">6</text><text class="t" x="1010" y="94" font-size="20">供应商评分</text><text class="s" x="1010" y="118" font-size="14">凭感觉选供应商不靠谱</text><rect class="box" x="744" y="168" width="210" height="92" rx="10"/><circle cx="768" cy="200" r="15" fill="var(--ac)"/><text class="n" x="768" y="205" text-anchor="middle" font-size="16">7</text><text class="t" x="790" y="196" font-size="20">价格趋势</text><text class="s" x="790" y="220" font-size="14">涨还是跌，要有走势</text><rect class="box" x="964" y="168" width="210" height="92" rx="10"/><circle cx="988" cy="200" r="15" fill="var(--ac)"/><text class="n" x="988" y="205" text-anchor="middle" font-size="16">8</text><text class="t" x="1010" y="196" font-size="20">航运周报</text><text class="s" x="1010" y="220" font-size="14">给商务一份决策依据</text>
 
-    <rect class="box-accent" x="320" y="414" width="400" height="50" rx="12"/>
-    <text class="t" x="520" y="444" text-anchor="middle" font-size="15">专业方案秒出</text>
+    <path class="link" d="M1190 160 L1230 160" marker-end="url(#farr)"/>
+
+    <rect class="box-accent" x="1230" y="100" width="170" height="120" rx="14"/>
+    <text class="t" x="1315" y="168" text-anchor="middle" font-size="24">专业方案秒出</text>
   </g>
 </svg></div>
-  </div>
+  </div>  </div>
 </section>
+
 
 <!-- ===== 产品演示 ===== -->
 <section class="sec" id="product">
-  <div class="wrap">
-    <div class="sec-label reveal">The Product</div>
-    <h2 class="sec-title reveal">八大模块，覆盖询价全流程</h2>
-    <p class="sec-lead reveal">从询价、比价、报价校验，到监控、评分、周报，覆盖商务每天的真实工作流。</p>
+  <div class="wrap" style="grid-template-columns:1fr;gap:clamp(28px,3vw,48px);max-width:1400px;padding:0 clamp(16px,3vw,32px)"><div class="ch-head" style="position:static">
+<div class="sec-label reveal">The Product</div>
+<h2 class="sec-title reveal">八大模块，覆盖询价全流程</h2>
+<p class="sec-lead reveal">从询价、比价、报价校验，到监控、评分、周报，覆盖商务每天的真实工作流。</p>
+</div>
+<div class="ch-body">
     <div class="demo-tabs reveal">
       <div class="demo-tab on" data-panel="p-query">询价查询</div>
       <div class="demo-tab" data-panel="p-rank">智能比价</div>
@@ -991,26 +1015,25 @@ img{max-width:100%;display:block}
 
       </div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 
 
 <section class="chapter" id="arch">
-  <div class="wrap">
-    <div class="grid-5-7">
-      <div>
-        <div class="ch-index"><span class="no">06</span>系统架构</div>
-        <h2 class="ch-title">数据、规则、AI、展示<br><span class="ac">四层解耦</span>，各自可验证</h2>
-        <p class="ch-lead" style="margin-top:clamp(20px,3vw,32px)">每一层独立验证、独立替换，新增供应商或线路，不碰既有结构。核心工程决策：三库分离防止测试污染生产；分线路分表从根上杜绝跨线路脏数据；渠道原始名与进仓点保真留存，报价可溯源；引擎只读底价、禁止加价。</p>
-      </div>
-    </div>
+  <div class="wrap" style="grid-template-columns:1fr;gap:clamp(28px,3vw,48px);max-width:1400px;padding:0 clamp(16px,3vw,32px)"><div class="ch-head" style="position:static">
+<div class="ch-index"><span class="no">06</span>系统架构</div>
+<h2 class="ch-title">数据、规则、AI、展示<br><span class="ac">四层解耦</span>，各自可验证</h2>
+<p class="ch-lead" style="margin-top:clamp(20px,3vw,32px)">每一层独立验证、独立替换，新增供应商或线路，不碰既有结构。核心工程决策：三库分离防止测试污染生产；分线路分表从根上杜绝跨线路脏数据；渠道原始名与进仓点保真留存，报价可溯源；引擎只读底价、禁止加价。</p>
+</div>
+<div class="ch-body">
+      
     <div class="diagram-wrap" style="margin-top:clamp(48px,6vw,88px)"><svg class="diagram" viewBox="0 0 1040 570" role="img" aria-label="系统五层架构图">
   <defs>
     <marker id="aarr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="arrow"/></marker>
   </defs>
   <g font-family="var(--sans)">
-    <rect class="box" x="160" y="24" width="720" height="84" rx="14"/><circle cx="196" cy="66" r="16" fill="var(--ac)"/><text class="n" x="196" y="71" text-anchor="middle">1</text><text class="t" x="228" y="58" font-size="16">应用层</text><text class="s" x="228" y="82" font-size="12">询价网页 · 价格对比表 · 趋势图 · 周报，单文件离线可用</text><rect x="760" y="52" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="71" text-anchor="middle" font-size="11" fill="var(--sub)">展示</text><path class="link" d="M520 108 L520 134" marker-end="url(#aarr)"/><rect class="box" x="160" y="134" width="720" height="84" rx="14"/><circle cx="196" cy="176" r="16" fill="var(--ac)"/><text class="n" x="196" y="181" text-anchor="middle">2</text><text class="t" x="228" y="168" font-size="16">AI 层</text><text class="s" x="228" y="192" font-size="12">截图 OCR（多模态）· 模型路由 · 多 Agent 编排</text><rect x="760" y="162" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="181" text-anchor="middle" font-size="11" fill="var(--sub)">感知</text><path class="link" d="M520 218 L520 244" marker-end="url(#aarr)"/><rect class="box" x="160" y="244" width="720" height="84" rx="14"/><circle cx="196" cy="286" r="16" fill="var(--ac)"/><text class="n" x="196" y="291" text-anchor="middle">3</text><text class="t" x="228" y="278" font-size="16">引擎层</text><text class="s" x="228" y="302" font-size="12">询价引擎 · 报价引擎 · 计费规则引擎</text><rect x="760" y="272" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="291" text-anchor="middle" font-size="11" fill="var(--sub)">决策</text><path class="link" d="M520 328 L520 354" marker-end="url(#aarr)"/><rect class="box" x="160" y="354" width="720" height="84" rx="14"/><circle cx="196" cy="396" r="16" fill="var(--ac)"/><text class="n" x="196" y="401" text-anchor="middle">4</text><text class="t" x="228" y="388" font-size="16">解析层</text><text class="s" x="228" y="412" font-size="12">统一入库 · 卡派 / 海派 / 时效 / 规则 / 船期，五模块全量验证</text><rect x="760" y="382" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="401" text-anchor="middle" font-size="11" fill="var(--sub)">摄入</text><path class="link" d="M520 438 L520 464" marker-end="url(#aarr)"/><rect class="box" x="160" y="464" width="720" height="84" rx="14"/><circle cx="196" cy="506" r="16" fill="var(--ac)"/><text class="n" x="196" y="511" text-anchor="middle">5</text><text class="t" x="228" y="498" font-size="16">数据层</text><text class="s" x="228" y="522" font-size="12">SQLite 三库分离（生产 / 测试 / 档案）· 分线路分表 · 配置集中化</text><rect x="760" y="492" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="511" text-anchor="middle" font-size="11" fill="var(--sub)">存储</text>
+    <rect class="box" x="160" y="24" width="720" height="84" rx="14"/><circle cx="196" cy="66" r="16" fill="var(--ac)"/><text class="n" x="196" y="71" text-anchor="middle">1</text><text class="t" x="228" y="58" font-size="23">应用层</text><text class="s" x="228" y="82" font-size="17">询价网页 · 价格对比表 · 趋势图 · 周报，单文件离线可用</text><rect x="760" y="52" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="71" text-anchor="middle" font-size="16" fill="var(--sub)">展示</text><path class="link" d="M520 108 L520 134" marker-end="url(#aarr)"/><rect class="box" x="160" y="134" width="720" height="84" rx="14"/><circle cx="196" cy="176" r="16" fill="var(--ac)"/><text class="n" x="196" y="181" text-anchor="middle">2</text><text class="t" x="228" y="168" font-size="23">AI 层</text><text class="s" x="228" y="192" font-size="17">截图 OCR（多模态）· 模型路由 · 多 Agent 编排</text><rect x="760" y="162" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="181" text-anchor="middle" font-size="16" fill="var(--sub)">感知</text><path class="link" d="M520 218 L520 244" marker-end="url(#aarr)"/><rect class="box" x="160" y="244" width="720" height="84" rx="14"/><circle cx="196" cy="286" r="16" fill="var(--ac)"/><text class="n" x="196" y="291" text-anchor="middle">3</text><text class="t" x="228" y="278" font-size="23">引擎层</text><text class="s" x="228" y="302" font-size="17">询价引擎 · 报价引擎 · 计费规则引擎</text><rect x="760" y="272" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="291" text-anchor="middle" font-size="16" fill="var(--sub)">决策</text><path class="link" d="M520 328 L520 354" marker-end="url(#aarr)"/><rect class="box" x="160" y="354" width="720" height="84" rx="14"/><circle cx="196" cy="396" r="16" fill="var(--ac)"/><text class="n" x="196" y="401" text-anchor="middle">4</text><text class="t" x="228" y="388" font-size="23">解析层</text><text class="s" x="228" y="412" font-size="17">统一入库 · 卡派 / 海派 / 时效 / 规则 / 船期，五模块全量验证</text><rect x="760" y="382" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="401" text-anchor="middle" font-size="16" fill="var(--sub)">摄入</text><path class="link" d="M520 438 L520 464" marker-end="url(#aarr)"/><rect class="box" x="160" y="464" width="720" height="84" rx="14"/><circle cx="196" cy="506" r="16" fill="var(--ac)"/><text class="n" x="196" y="511" text-anchor="middle">5</text><text class="t" x="228" y="498" font-size="23">数据层</text><text class="s" x="228" y="522" font-size="17">SQLite 三库分离（生产 / 测试 / 档案）· 分线路分表 · 配置集中化</text><rect x="760" y="492" width="96" height="28" rx="14" fill="var(--card-2)" stroke="var(--border)"/><text x="808" y="511" text-anchor="middle" font-size="16" fill="var(--sub)">存储</text>
   </g>
 </svg></div>
     </div>
@@ -1019,10 +1042,12 @@ img{max-width:100%;display:block}
 
 
 <section class="chapter" id="ai">
-  <div class="wrap">
-    <div class="ch-index"><span class="no">07</span>AI 能力</div>
+  <div class="wrap"><div class="ch-head">
+<div class="ch-index"><span class="no">07</span>AI 能力</div>
     <h2 class="ch-title">AI 做感知，<br><span class="ac">规则做决策</span></h2>
     <p class="ch-lead">大模型可以猜，但猜错了必须能被兜住——这是 AI 产品与玩具的分水岭。</p>
+</div>
+<div class="ch-body">
 
     <div style="margin-top:clamp(48px,6vw,88px)">
       <div class="feat-row">
@@ -1059,15 +1084,17 @@ img{max-width:100%;display:block}
         </tbody>
       </table>
     </div>
-  </div>
+  </div></div>
 </section>
 
 
 <section class="chapter" id="ai-land">
-  <div class="wrap">
-    <div class="ch-index"><span class="no">08</span>AI 应用落地</div>
+  <div class="wrap"><div class="ch-head">
+<div class="ch-index"><span class="no">08</span>AI 应用落地</div>
     <h2 class="ch-title">把大模型从「能跑通 demo」<br><span class="ac">推到「敢上生产」</span></h2>
     <p class="ch-lead">靠的不是更多参数，而是四件事：防幻觉、可验证、可路由、可溯源。</p>
+</div>
+<div class="ch-body">
 
     <div class="def-lines" style="margin-top:clamp(48px,6vw,88px)">
       <div class="def"><span class="dnum">01</span><div class="db"><h4>防幻觉三道闸</h4><p>LLM 对形近字符（O/0、I/1、M/N、N/H）有随机误差，绝不让它「猜」仓码。结果先过白名单，白名单外用编辑距离找候选，再主动确认，不硬报。</p></div></div>
@@ -1075,17 +1102,17 @@ img{max-width:100%;display:block}
       <div class="def"><span class="dnum">03</span><div class="db"><h4>模型分级路由</h4><p>按任务复杂度与容错等级分配模型：普通查价走轻量模型降本，价表深度解析走强模型保精度，图片识别走多模态。不做一刀切。</p></div></div>
       <div class="def"><span class="dnum">04</span><div class="db"><h4>可解释可溯源</h4><p>AI 只负责感知与生成，算钱一律走确定性引擎；每条报价可溯源到原始价表与进仓点，引擎只读底价、禁止加价——「宁可不报价，不可报错价」。</p></div></div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 
 <section class="chapter" id="result">
-  <div class="wrap">
-    <div class="grid-5-7">
-      <div>
-        <div class="ch-index"><span class="no">09</span>落地成果</div>
-        <h2 class="ch-title">让询价从「分钟级」<br><span class="ac">降到「秒级」</span></h2>
-        <p class="ch-lead" style="margin-top:clamp(20px,3vw,32px)">生产系统实测数据，量化这套系统的落地效果。不是 demo 的天花板，是扛住了真实业务压力的结果。</p>
+  <div class="wrap"><div class="ch-head">
+<div class="ch-index"><span class="no">09</span>落地成果</div>
+<h2 class="ch-title">让询价从「分钟级」<br><span class="ac">降到「秒级」</span></h2>
+<p class="ch-lead" style="margin-top:clamp(20px,3vw,32px)">生产系统实测数据，量化这套系统的落地效果。不是 demo 的天花板，是扛住了真实业务压力的结果。</p>
+</div>
+<div class="ch-body">
         <div class="hero-meta" style="margin-top:clamp(28px,4vw,48px)">
           <div class="hm"><span class="num"><span data-count="8">8</span>万+</span><span class="lb">条底价沉淀</span></div>
           <div class="hero-div"></div>
@@ -1093,8 +1120,7 @@ img{max-width:100%;display:block}
           <div class="hero-div"></div>
           <div class="hm"><span class="num"><em>&lt;1</em>秒</span><span class="lb">查询响应</span></div>
         </div>
-      </div>
-    </div>
+      
     <div class="tbl" style="margin-top:clamp(40px,5vw,72px)">
       <table>
         <thead><tr><th>关键工程决策</th><th>价值</th></tr></thead>
@@ -1108,38 +1134,42 @@ img{max-width:100%;display:block}
         </tbody>
       </table>
     </div>
-  </div>
+  </div></div>
 </section>
 
 
 <section class="chapter" id="guard">
-  <div class="wrap">
-    <div class="ch-index"><span class="no">10</span>产品责任</div>
+  <div class="wrap" style="grid-template-columns:1fr;gap:clamp(28px,3vw,48px);max-width:1400px;padding:0 clamp(16px,3vw,32px)"><div class="ch-head" style="position:static">
+<div class="ch-index"><span class="no">10</span>产品责任</div>
     <h2 class="ch-title">我如何为「报错价」<br><span class="ac">这件事负责</span></h2>
     <p class="ch-lead">对一个会真金白银亏钱的产品，我把防错拆成三道闸，沿数据的生命周期一路兜底——入库怎么不摘错、输出怎么不走样、日常怎么持续对账，把「少出错」做成机制，把「出错可追溯」做成默认。</p>
+</div>
+<div class="ch-body">
     <div class="diagram-wrap" style="margin-top:clamp(48px,6vw,88px)"><svg class="diagram" viewBox="0 0 1040 400" role="img" aria-label="数据防错三道闸：入库防摘错、输出防格式错、日常验证维护">
   <defs>
     <marker id="garr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="arrow"/></marker>
   </defs>
   <g font-family="var(--sans)">
-    <rect class="lane" x="20" y="16" width="320" height="372" rx="16"/><text class="lane-title" x="40" y="44" font-size="14">入库 · 防摘错</text><rect class="box" x="36" y="76" width="288" height="64" rx="10"/><circle cx="60" cy="108" r="14" fill="var(--ac)"/><text class="n" x="60" y="113" text-anchor="middle">1</text><text class="t" x="82" y="103" font-size="13.5">双路独立解析</text><text class="s" x="82" y="122" font-size="10.5">提取器 X + 真值解析器 E 各读一遍</text><rect class="box" x="36" y="152" width="288" height="64" rx="10"/><circle cx="60" cy="184" r="14" fill="var(--ac)"/><text class="n" x="60" y="189" text-anchor="middle">2</text><text class="t" x="82" y="179" font-size="13.5">逐格对账 E==X==D</text><text class="s" x="82" y="198" font-size="10.5">提取·真值·入库三方一致才放行</text><rect class="box" x="36" y="228" width="288" height="64" rx="10"/><circle cx="60" cy="260" r="14" fill="var(--ac)"/><text class="n" x="60" y="265" text-anchor="middle">3</text><text class="t" x="82" y="255" font-size="13.5">白名单校验</text><text class="s" x="82" y="274" font-size="10.5">仓码过白名单，形近字符找候选</text><rect class="box" x="36" y="304" width="288" height="64" rx="10"/><circle cx="60" cy="336" r="14" fill="var(--ac)"/><text class="n" x="60" y="341" text-anchor="middle">4</text><text class="t" x="82" y="331" font-size="13.5">防火墙阻断</text><text class="s" x="82" y="350" font-size="10.5">对账不过 exit 4，不入库</text><path class="link" d="M340 188 L354 188" marker-end="url(#garr)"/><rect class="lane" x="360" y="16" width="320" height="372" rx="16"/><text class="lane-title" x="380" y="44" font-size="14">输出 · 防格式错</text><rect class="box" x="376" y="76" width="288" height="64" rx="10"/><circle cx="400" cy="108" r="14" fill="var(--ac)"/><text class="n" x="400" y="113" text-anchor="middle">1</text><text class="t" x="422" y="103" font-size="13.5">唯一出口</text><text class="s" x="422" y="122" font-size="10.5">format_quote 强制格式化，禁手写</text><rect class="box" x="376" y="152" width="288" height="64" rx="10"/><circle cx="400" cy="184" r="14" fill="var(--ac)"/><text class="n" x="400" y="189" text-anchor="middle">2</text><text class="t" x="422" y="179" font-size="13.5">5 必给要素</text><text class="s" x="422" y="198" font-size="10.5">仓库 / 渠道 / 单价 / 时效 / 进仓地</text><rect class="box" x="376" y="228" width="288" height="64" rx="10"/><circle cx="400" cy="260" r="14" fill="var(--ac)"/><text class="n" x="400" y="265" text-anchor="middle">3</text><text class="t" x="422" y="255" font-size="13.5">双渠道名</text><text class="s" x="422" y="274" font-size="10.5">供应商名 + 原始渠道名保真</text><rect class="box" x="376" y="304" width="288" height="64" rx="10"/><circle cx="400" cy="336" r="14" fill="var(--ac)"/><text class="n" x="400" y="341" text-anchor="middle">4</text><text class="t" x="422" y="331" font-size="13.5">四层校验</text><text class="s" x="422" y="350" font-size="10.5">schema / 守卫 / 自动排除 / 自动校验</text><path class="link" d="M680 188 L694 188" marker-end="url(#garr)"/><rect class="lane" x="700" y="16" width="320" height="372" rx="16"/><text class="lane-title" x="720" y="44" font-size="14">日常 · 验证维护</text><rect class="box" x="716" y="76" width="288" height="64" rx="10"/><circle cx="740" cy="108" r="14" fill="var(--ac)"/><text class="n" x="740" y="113" text-anchor="middle">1</text><text class="t" x="762" y="103" font-size="13.5">版本关系判定</text><text class="s" x="762" y="122" font-size="10.5">新价表 / 同批 / 旧价表分级拦截</text><rect class="box" x="716" y="152" width="288" height="64" rx="10"/><circle cx="740" cy="184" r="14" fill="var(--ac)"/><text class="n" x="740" y="189" text-anchor="middle">2</text><text class="t" x="762" y="179" font-size="13.5">动态基线告警</text><text class="s" x="762" y="198" font-size="10.5">滑动窗口，数量骤降即报</text><rect class="box" x="716" y="228" width="288" height="64" rx="10"/><circle cx="740" cy="260" r="14" fill="var(--ac)"/><text class="n" x="740" y="265" text-anchor="middle">3</text><text class="t" x="762" y="255" font-size="13.5">强不变量扫描</text><text class="s" x="762" y="274" font-size="10.5">计费重 / 单位匹配合理性扫描</text><rect class="box" x="716" y="304" width="288" height="64" rx="10"/><circle cx="740" cy="336" r="14" fill="var(--ac)"/><text class="n" x="740" y="341" text-anchor="middle">4</text><text class="t" x="762" y="331" font-size="13.5">归档留痕</text><text class="s" x="762" y="350" font-size="10.5">档案库留痕，随时查证回滚</text>
+    <rect class="lane" x="20" y="16" width="320" height="372" rx="16"/><text class="lane-title" x="40" y="44" font-size="20">入库 · 防摘错</text><rect class="box" x="36" y="76" width="288" height="64" rx="10"/><circle cx="60" cy="108" r="14" fill="var(--ac)"/><text class="n" x="60" y="113" text-anchor="middle">1</text><text class="t" x="82" y="103" font-size="16">双路独立解析</text><text class="s" x="82" y="122" font-size="13">提取器 X + 真值解析器 E 各读一遍</text><rect class="box" x="36" y="152" width="288" height="64" rx="10"/><circle cx="60" cy="184" r="14" fill="var(--ac)"/><text class="n" x="60" y="189" text-anchor="middle">2</text><text class="t" x="82" y="179" font-size="16">逐格对账 E==X==D</text><text class="s" x="82" y="198" font-size="13">提取·真值·入库三方一致才放行</text><rect class="box" x="36" y="228" width="288" height="64" rx="10"/><circle cx="60" cy="260" r="14" fill="var(--ac)"/><text class="n" x="60" y="265" text-anchor="middle">3</text><text class="t" x="82" y="255" font-size="16">白名单校验</text><text class="s" x="82" y="274" font-size="13">仓码过白名单，形近字符找候选</text><rect class="box" x="36" y="304" width="288" height="64" rx="10"/><circle cx="60" cy="336" r="14" fill="var(--ac)"/><text class="n" x="60" y="341" text-anchor="middle">4</text><text class="t" x="82" y="331" font-size="16">防火墙阻断</text><text class="s" x="82" y="350" font-size="13">对账不过 exit 4，不入库</text><path class="link" d="M340 188 L354 188" marker-end="url(#garr)"/><rect class="lane" x="360" y="16" width="320" height="372" rx="16"/><text class="lane-title" x="380" y="44" font-size="20">输出 · 防格式错</text><rect class="box" x="376" y="76" width="288" height="64" rx="10"/><circle cx="400" cy="108" r="14" fill="var(--ac)"/><text class="n" x="400" y="113" text-anchor="middle">1</text><text class="t" x="422" y="103" font-size="16">唯一出口</text><text class="s" x="422" y="122" font-size="13">format_quote 强制格式化，禁手写</text><rect class="box" x="376" y="152" width="288" height="64" rx="10"/><circle cx="400" cy="184" r="14" fill="var(--ac)"/><text class="n" x="400" y="189" text-anchor="middle">2</text><text class="t" x="422" y="179" font-size="16">5 必给要素</text><text class="s" x="422" y="198" font-size="13">仓库 / 渠道 / 单价 / 时效 / 进仓地</text><rect class="box" x="376" y="228" width="288" height="64" rx="10"/><circle cx="400" cy="260" r="14" fill="var(--ac)"/><text class="n" x="400" y="265" text-anchor="middle">3</text><text class="t" x="422" y="255" font-size="16">双渠道名</text><text class="s" x="422" y="274" font-size="13">供应商名 + 原始渠道名保真</text><rect class="box" x="376" y="304" width="288" height="64" rx="10"/><circle cx="400" cy="336" r="14" fill="var(--ac)"/><text class="n" x="400" y="341" text-anchor="middle">4</text><text class="t" x="422" y="331" font-size="16">四层校验</text><text class="s" x="422" y="350" font-size="13">schema / 守卫 / 自动排除 / 自动校验</text><path class="link" d="M680 188 L694 188" marker-end="url(#garr)"/><rect class="lane" x="700" y="16" width="320" height="372" rx="16"/><text class="lane-title" x="720" y="44" font-size="20">日常 · 验证维护</text><rect class="box" x="716" y="76" width="288" height="64" rx="10"/><circle cx="740" cy="108" r="14" fill="var(--ac)"/><text class="n" x="740" y="113" text-anchor="middle">1</text><text class="t" x="762" y="103" font-size="16">版本关系判定</text><text class="s" x="762" y="122" font-size="13">新价表 / 同批 / 旧价表分级拦截</text><rect class="box" x="716" y="152" width="288" height="64" rx="10"/><circle cx="740" cy="184" r="14" fill="var(--ac)"/><text class="n" x="740" y="189" text-anchor="middle">2</text><text class="t" x="762" y="179" font-size="16">动态基线告警</text><text class="s" x="762" y="198" font-size="13">滑动窗口，数量骤降即报</text><rect class="box" x="716" y="228" width="288" height="64" rx="10"/><circle cx="740" cy="260" r="14" fill="var(--ac)"/><text class="n" x="740" y="265" text-anchor="middle">3</text><text class="t" x="762" y="255" font-size="16">强不变量扫描</text><text class="s" x="762" y="274" font-size="13">计费重 / 单位匹配合理性扫描</text><rect class="box" x="716" y="304" width="288" height="64" rx="10"/><circle cx="740" cy="336" r="14" fill="var(--ac)"/><text class="n" x="740" y="341" text-anchor="middle">4</text><text class="t" x="762" y="331" font-size="16">归档留痕</text><text class="s" x="762" y="350" font-size="13">档案库留痕，随时查证回滚</text>
   </g>
 </svg></div>
-  </div>
+  </div></div>
 </section>
 
 
 <section class="chapter outro" id="outro">
-  <div class="wrap">
-    <div class="ch-index"><span class="no">11</span>关于这个项目</div>
+  <div class="wrap"><div class="ch-head">
+<div class="ch-index"><span class="no">11</span>关于这个项目</div>
     <h2 class="ch-title">把 AI 真正落到业务，<br><span class="ac">是产品人最值钱的能力</span></h2>
     <p class="ch-lead" style="max-width:620px">这个项目里，我完成的不是「调用一个 API」，而是一个完整的产品闭环：理解业务 → 判断该不该用 AI → 拆解落地 → 验证结果。</p>
+</div>
+<div class="ch-body">
     <div class="steps">
       <div class="step"><span class="sn">先 · 理解</span><h4>业务理解</h4><p>不坐在办公室臆想需求，而是走到业务现场，看商务怎么翻表、怎么算价、错在哪里。</p></div>
       <div class="step"><span class="sn">再 · 判断</span><h4>AI 判断</h4><p>清楚知道大模型的强项与命门——用于容错，不用于负责。这是 AI 产品落地最核心的判断。</p></div>
       <div class="step"><span class="sn">后 · 落地</span><h4>落地能力</h4><p>不满足于 demo，把「准确率」「可溯源」「可回滚」做成一等公民，敢上生产、敢负责任。</p></div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 
